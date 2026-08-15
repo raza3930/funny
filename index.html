@@ -7,92 +7,78 @@
 <title>Dost Ho Ya Nahi 😄</title>
 
 <style>
-* {
-  box-sizing: border-box;
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#ffdde1,#ee9ca7);
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ffd6e0, #f7a8b8);
-  overflow: hidden;
+.card{
+    width:90%;
+    max-width:500px;
+    background:white;
+    padding:35px 20px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 15px 40px #0003;
 }
 
-.card {
-  width: 92%;
-  max-width: 520px;
-  min-height: 420px;
-  background: white;
-  border-radius: 28px;
-  padding: 35px 22px;
-  text-align: center;
-  box-shadow: 0 15px 40px #0002;
+.emoji{
+    font-size:60px;
 }
 
-.emoji {
-  font-size: 58px;
+h1{
+    font-size:30px;
 }
 
-h1 {
-  font-size: 29px;
-  margin: 12px 0;
+p{
+    color:#666;
+    font-size:18px;
 }
 
-p {
-  color: #666;
-  font-size: 17px;
+#area{
+    position:relative;
+    height:180px;
+    margin-top:20px;
+    background:#fff5f7;
+    border-radius:20px;
+    overflow:hidden;
 }
 
-#area {
-  position: relative;
-  width: 100%;
-  height: 170px;
-  margin-top: 15px;
-  border-radius: 18px;
-  background: #fff7f9;
-  overflow: hidden;
+button{
+    position:absolute;
+    border:0;
+    padding:14px 25px;
+    border-radius:14px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-button {
-  position: absolute;
-  border: none;
-  border-radius: 14px;
-  padding: 14px 25px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 5;
-
-  transition:
-    left 0.18s ease,
-    top 0.18s ease,
-    transform 0.18s ease;
+#yes{
+    left:22%;
+    top:65px;
+    background:#20c76b;
+    color:white;
 }
 
-#yes {
-  left: 24%;
-  top: 65px;
-  background: #20bd68;
-  color: white;
+#no{
+    left:55%;
+    top:65px;
+    background:#ff4d5e;
+    color:white;
 }
 
-#no {
-  left: 56%;
-  top: 65px;
-  background: #ff4d5e;
-  color: white;
-}
-
-#msg {
-  height: 35px;
-  margin-top: 12px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #e83e62;
+#message{
+    margin-top:15px;
+    font-size:21px;
+    font-weight:bold;
+    color:#e83e62;
+    line-height:1.5;
 }
 </style>
 </head>
@@ -101,29 +87,23 @@ button {
 
 <div class="card">
 
-  <div class="emoji" id="emoji">🤔</div>
+    <div class="emoji" id="emoji">🤔</div>
 
-  <h1 id="question">
-    Tum mere dost ho ke nahi? 😏
-  </h1>
+    <h1>Tum mere dost ho ke nahi? 😏</h1>
 
-  <p id="sub">
-    Sach-sach jawab dena... 😂
-  </p>
+    <p id="sub">
+        Sach-sach jawab dena... 😂
+    </p>
 
-  <div id="area">
+    <div id="area">
 
-    <button id="yes">
-      YES ❤️
-    </button>
+        <button id="yes">YES ❤️</button>
 
-    <button id="no">
-      NO 😜
-    </button>
+        <button id="no">NO 😜</button>
 
-  </div>
+    </div>
 
-  <div id="msg"></div>
+    <div id="message"></div>
 
 </div>
 
@@ -131,113 +111,56 @@ button {
 <script>
 
 const area = document.getElementById("area");
-
-const no = document.getElementById("no");
-
 const yes = document.getElementById("yes");
-
-const msg = document.getElementById("msg");
-
+const no = document.getElementById("no");
+const message = document.getElementById("message");
 const emoji = document.getElementById("emoji");
-
 const sub = document.getElementById("sub");
 
 
-// NO button ko random jagah bhejna
-function moveNo() {
+function moveNo(){
 
-  const maxX =
-    area.clientWidth - no.offsetWidth - 8;
+    let maxX = area.clientWidth - no.offsetWidth - 10;
+    let maxY = area.clientHeight - no.offsetHeight - 10;
 
-  const maxY =
-    area.clientHeight - no.offsetHeight - 8;
+    let x = Math.random() * maxX;
+    let y = Math.random() * maxY;
 
-  const x =
-    Math.floor(Math.random() * Math.max(1, maxX));
+    no.style.left = x + "px";
+    no.style.top = y + "px";
 
-  const y =
-    Math.floor(Math.random() * Math.max(1, maxY));
-
-  no.style.left = x + "px";
-
-  no.style.top = y + "px";
-
-  msg.textContent =
-    "NO ko pakad nahi paoge 😂🏃";
+    message.innerHTML =
+        "NO ko pakad nahi paoge 😂🏃";
 }
 
 
-// YES button bhi jagah change kare
-function moveYes() {
+// YES button dabane par
+yes.addEventListener("click", function(){
 
-  const maxX =
-    area.clientWidth - yes.offsetWidth - 8;
+    message.innerHTML =
+        "Mujhe maloom tha tum YES dabaoge! 😎❤️<br>" +
+        "Aakhir tum mere special dost jo ho! 🥰🎉";
 
-  const maxY =
-    area.clientHeight - yes.offsetHeight - 8;
+    emoji.innerHTML = "🥰";
 
-  yes.style.left =
-    Math.floor(Math.random() * Math.max(1, maxX)) + "px";
-
-  yes.style.top =
-    Math.floor(Math.random() * Math.max(1, maxY)) + "px";
-
-  msg.textContent =
-    "YES! Mujhe pata tha 😎❤️";
-
-  emoji.textContent = "🥰";
-
-  sub.textContent =
-    "Dosti officially confirmed! 🎉";
-}
-
-
-// Computer me mouse NO ke paas le jaoge
-// to NO bhaag jayega
-no.addEventListener("mouseenter", function() {
-
-  moveNo();
+    sub.innerHTML =
+        "Dosti officially confirmed! ❤️🎉";
 
 });
 
 
-// NO par click
-no.addEventListener("click", function(event) {
+// NO button dabane par bhaagega
+no.addEventListener("click", function(){
 
-  event.preventDefault();
-
-  event.stopPropagation();
-
-  moveNo();
+    moveNo();
 
 });
 
 
-// Mobile phone me NO ko touch karne par
-no.addEventListener("touchstart", function(event) {
+// Mouse NO ke paas le jaane par bhi bhaagega
+no.addEventListener("mouseenter", function(){
 
-  event.preventDefault();
-
-  moveNo();
-
-}, { passive: false });
-
-
-// YES click
-yes.addEventListener("click", function(event) {
-
-  event.preventDefault();
-
-  msg.innerHTML = `
-    Mujhe maloom tha tum YES dabaoge! 😎❤️<br>
-    Aakhir tum mere special dost jo ho! 🥰🎉
-  `;
-
-  emoji.textContent = "🥰";
-
-  sub.textContent = "Dosti officially confirmed! 🎉";
-
-  moveYes();
+    moveNo();
 
 });
 
